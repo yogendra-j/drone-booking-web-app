@@ -39,7 +39,7 @@ function DroneShotEditPage() {
     event.preventDefault();
     try {
       await updateDroneShot(id, formData);
-      navigate(`/drone-shots/${id}`);
+      navigate(`/drone-shots`);
     } catch (error) {
       setFormErrors(error.errors);
     }

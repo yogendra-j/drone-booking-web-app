@@ -39,9 +39,7 @@ export async function updateCustomer(customerId, customerData) {
 }
 
 export async function deleteCustomer(customerId) {
-  const response = await fetch(`${API_URL}/${customerId}`, {
+  await fetch(`${API_URL}/${customerId}`, {
     method: 'DELETE'
   });
-  const data = await response.json();
-  return data;
 }

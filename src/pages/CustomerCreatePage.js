@@ -23,8 +23,8 @@ function CustomerCreatePage() {
   async function handleSubmit(event) {
     event.preventDefault();
     try {
-      const newCustomer = await createCustomer(formData);
-      navigate(`/customers/${newCustomer.id}`);
+      await createCustomer(formData);
+      navigate(`/customers`);
     } catch (error) {
       setFormErrors(error.errors);
     }

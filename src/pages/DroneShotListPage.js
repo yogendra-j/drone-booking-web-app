@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Table } from 'react-bootstrap';
-import { getDroneShots } from '../api/droneShotApi';
+import { Table, Button } from 'react-bootstrap';
+import { getDroneShots, deleteDroneShot } from '../api/droneShotApi';
 
 function DroneShotListPage() {
   const [droneShots, setDroneShots] = useState([]);
@@ -19,6 +19,13 @@ function DroneShotListPage() {
     }
     fetchData();
   }, []);
+
+  const handleDelete = async (id) => {
+    await deleteDroneShot(id);
+    const data = await getDroneShots();
+    setDroneShots(data);
+    setLoading(false);
+  };
 
   return (
     <>
@@ -42,12 +49,12 @@ function DroneShotListPage() {
                 <td>{droneShot.duration}</td>
                 <td>{droneShot.price}</td>
                 <td>
-                  <Link to={`/drone-shots/${droneShot.id}`} className="btn btn-primary">
-                    View
-                  </Link>
                   <Link to={`/drone-shots/${droneShot.id}/edit`} className="btn btn-secondary">
                     Edit
                   </Link>
+                  <Button onClick={() => handleDelete(droneShot.id)} className="btn btn-danger">
+                    Delete
+                  </Button>
                 </td>
               </tr>
             ))}

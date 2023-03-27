@@ -39,7 +39,7 @@ function CustomerEditPage() {
     event.preventDefault();
     try {
       await updateCustomer(id, formData);
-      navigate(`/customers/${id}`);
+      navigate(`/customers`);
     } catch (error) {
       setFormErrors(error.errors);
     }

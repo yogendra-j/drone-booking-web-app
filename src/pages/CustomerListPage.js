@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Table, Button } from 'react-bootstrap';
-import { getCustomers } from '../api/customerApi';
+import { getCustomers, deleteCustomer } from '../api/customerApi';
 
 function CustomerListPage() {
   const [customers, setCustomers] = useState([]);
@@ -19,6 +19,13 @@ function CustomerListPage() {
     }
     fetchData();
   }, []);
+
+  const handleDelete = async (id) => {
+    await deleteCustomer(id);
+    const data = await getCustomers();
+    setCustomers(data);
+    setLoading(false);
+  };
 
   return (
     <>
@@ -52,6 +59,7 @@ function CustomerListPage() {
                   <Link to={`/customers/${customer.id}/edit`}>
                     <Button variant="warning">Edit</Button>
                   </Link>
+                  <Button onClick={() => handleDelete(customer.id)} className='btn btn-danger'>Delete</Button>
                 </td>
               </tr>
             ))
