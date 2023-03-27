@@ -1,20 +1,53 @@
-import React, { useState, useEffect } from 'react';
-import { Table, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import { getBookings, deleteBooking } from '../api/bookingApi';
+import React, { useState, useEffect } from "react";
+import { Table, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { getBookings, deleteBooking } from "../api/bookingApi";
 
-function BookingList() {
+function BookingList({ filterData }) {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
+  console.log("bookinglist render");
 
   useEffect(() => {
     async function fetchBookings() {
-      const data = await getBookings();
+      let data = await getBookings();
+      data = data.filter(filterBookings);
       setBookings(data);
       setLoading(false);
     }
     fetchBookings();
-  }, []);
+  }, [filterData]);
+
+  function filterBookings(booking) {
+    const {
+      customerId: filterCustomerId,
+      droneSiteId: filterDroneSiteId,
+      droneShotId: filterDroneShotId,
+      startDate,
+      endDate,
+    } = filterData;
+
+    if (
+      (filterCustomerId &&
+        booking.customer.id !== parseInt(filterCustomerId)) ||
+      (filterDroneSiteId &&
+        booking.droneSite.id !== parseInt(filterDroneSiteId)) ||
+      (filterDroneShotId &&
+        booking.droneShot.id !== parseInt(filterDroneShotId))
+    ) {
+      return false;
+    }
+
+    if (startDate && new Date(booking.createdTime) < new Date(startDate)) {
+      return false;
+    }
+
+    if (endDate && new Date(booking.createdTime) > new Date(endDate)) {
+      return false;
+    }
+
+    return true;
+  };
 
   const handleDelete = async (id) => {
     await deleteBooking(id);
@@ -43,12 +76,13 @@ function BookingList() {
           </thead>
           <tbody>
             {bookings.map((booking) => (
-              <tr key={'booking' + booking.id}>
+              <tr key={"booking" + booking.id}>
                 <td>{booking.id}</td>
                 <td>{booking.customer.name}</td>
                 <td>{booking.droneSite.name}</td>
                 <td>
-                  {booking.droneShot.name} ({booking.droneShot.duration} mins, ${booking.droneShot.price})
+                  {booking.droneShot.name} ({booking.droneShot.duration} mins, $
+                  {booking.droneShot.price})
                 </td>
                 <td>{new Date(booking.createdTime).toLocaleString()}</td>
                 <td>
@@ -57,7 +91,11 @@ function BookingList() {
                       Edit
                     </Button>
                   </Link>
-                  <Button variant="danger" size="sm" onClick={() => handleDelete(booking.id)}>
+                  <Button
+                    variant="danger"
+                    size="sm"
+                    onClick={() => handleDelete(booking.id)}
+                  >
                     Delete
                   </Button>
                 </td>

@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Table, Button, Form } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { getBookings } from "../api/bookingApi";
+import { getCustomers } from "../api/customerApi";
+import { getDroneSites } from "../api/droneSiteApi";
+import { getDroneShots } from "../api/droneShotApi";
 import BookingList from "../components/BookingList";
 
 function BookingListPage() {
-  const [bookings, setBookings] = useState([]);
-  const [, setLoading] = useState(true);
+  const [customers, setCustomers] = useState([]);
+  const [droneShots, setDroneShots] = useState([]);
+  const [droneSites, setDroneSites] = useState([]);
   const [filterData, setFilterData] = useState({
     customerId: "",
     droneSiteId: "",
@@ -17,9 +20,10 @@ function BookingListPage() {
 
   useEffect(() => {
     async function fetchData() {
-      const data = await getBookings();
-      setBookings(data);
-      setLoading(false);
+      const [customers, droneShots, droneSites] = await Promise.all([getCustomers(), getDroneShots(), getDroneSites()]);
+      setCustomers(customers);
+      setDroneShots(droneShots);
+      setDroneSites(droneSites);
     }
     fetchData();
   }, []);
@@ -32,39 +36,6 @@ function BookingListPage() {
     }));
   }
 
-  function filterBookings(booking) {
-    const {
-      customerId: filterCustomerId,
-      droneSiteId: filterDroneSiteId,
-      droneShotId: filterDroneShotId,
-      startDate,
-      endDate,
-    } = filterData;
-
-    if (
-      (filterCustomerId &&
-        booking.customer.id !== parseInt(filterCustomerId)) ||
-      (filterDroneSiteId &&
-        booking.droneSite.id !== parseInt(filterDroneSiteId)) ||
-      (filterDroneShotId &&
-        booking.droneShot.id !== parseInt(filterDroneShotId))
-    ) {
-      return false;
-    }
-
-    if (startDate && new Date(booking.createdTime) < new Date(startDate)) {
-      return false;
-    }
-
-    if (endDate && new Date(booking.createdTime) > new Date(endDate)) {
-      return false;
-    }
-
-    return true;
-  }
-
-  const filteredBookings = bookings.filter(filterBookings);
-
   return (
     <>
       <h1>Bookings</h1>
@@ -76,9 +47,9 @@ function BookingListPage() {
           <Form.Label>Customer</Form.Label>
           <Form.Control as="select" name="customerId" onChange={handleChange}>
             <option value="">All Customers</option>
-            {bookings.map((booking) => (
-              <option key={'customer' + booking.customer.id} value={booking.customer.id}>
-                {booking.customer.name}
+            {customers.map((customer) => (
+              <option key={'customer' + customer.id} value={customer.id}>
+                {customer.name}
               </option>
             ))}
           </Form.Control>
@@ -87,9 +58,9 @@ function BookingListPage() {
           <Form.Label>Drone Site</Form.Label>
           <Form.Control as="select" name="droneSiteId" onChange={handleChange}>
             <option value="">All Sites</option>
-            {bookings.map((booking) => (
-              <option key={'site' + booking.droneSite.id} value={booking.droneSite.id}>
-                {booking.droneSite.name}
+            {droneSites.map((droneSite) => (
+              <option key={'site' + droneSite.id} value={droneSite.id}>
+                {droneSite.name}
               </option>
             ))}
           </Form.Control>
@@ -98,9 +69,9 @@ function BookingListPage() {
           <Form.Label>Drone Shot</Form.Label>
           <Form.Control as="select" name="droneShotId" onChange={handleChange}>
             <option value="">All Shots</option>
-            {bookings.map((booking) => (
-              <option key={'shot' + booking.droneShot.id} value={booking.droneShot.id}>
-                {booking.droneShot.name}
+            {droneShots.map((droneShot) => (
+              <option key={'shot' + droneShot.id} value={droneShot.id}>
+                {droneShot.name}
               </option>
             ))}
           </Form.Control>
@@ -114,7 +85,7 @@ function BookingListPage() {
           <Form.Control type="date" name="endDate" onChange={handleChange} />
         </Form.Group>
       </Form>
-      <BookingList></BookingList>
+      <BookingList filterData={filterData}></BookingList>
     </>
   );
 }
