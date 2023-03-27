@@ -1,70 +1,50 @@
-# Getting Started with Create React App
+# Droame Aerial Videography Booking Portal
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a React client application for the Droame Aerial Videography Booking Portal. This portal allows operators to manage customers and their bookings of drone shots.
 
-## Available Scripts
+## Installation
 
-In the project directory, you can run:
+To install and run the application, follow these steps:
 
-### `npm start`
+1. Clone this repository to your local machine.
+2. Install the required dependencies using `npm install`.
+3. Start the application using `npm start`.
+4. The application will be available at `http://localhost:3000`.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Usage
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+The application provides a simple UI for operators to manage customers and their bookings.
 
-### `npm test`
+### Customers
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+To manage customers, navigate to the Customers page. From there, you can:
 
-### `npm run build`
+- Create a new customer by clicking the "Create Customer" button and filling out the form.
+- View details for a customer by clicking on their name in the list.
+- Edit customer details by clicking the "Edit" button and modifying the form.
+- Delete a customer by clicking the "Delete" button.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Bookings
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+To manage bookings, navigate to the Bookings page. From there, you can:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Create a new booking by clicking the "Create Booking" button and filling out the form.
+- View details for a booking by clicking on the booking in the list.
+- Edit booking details by clicking the "Edit" button and modifying the form.
+- Delete a booking by clicking the "Delete" button.
 
-### `npm run eject`
+## Technologies
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+This application was built using:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- React
+- React Router for navigation
+- React-Bootstrap for styling the components
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Contributing
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Contributions are welcome! If you find a bug or would like to add a feature, please open an issue or a pull request.
 
-## Learn More
+## License
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This application is licensed under the MIT license.
