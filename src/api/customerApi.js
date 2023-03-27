@@ -1,4 +1,6 @@
-const API_URL = 'http://localhost:8080/api/customers';
+import {BASE_URL} from '../constants'
+
+const API_URL = `${BASE_URL}/api/customers`;
 
 export async function getCustomers() {
   const response = await fetch(API_URL);

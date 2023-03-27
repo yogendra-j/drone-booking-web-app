@@ -1,4 +1,6 @@
-const API_URL = 'http://localhost:8080/api/bookings';
+import {BASE_URL} from '../constants';
+
+const API_URL = (BASE_URL ?? '') + '/api/bookings';
 
 export async function getBookings() {
   const response = await fetch(API_URL);
