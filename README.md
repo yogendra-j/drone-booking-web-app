@@ -8,8 +8,10 @@ To install and run the application, follow these steps:
 
 1. Clone this repository to your local machine.
 2. Install the required dependencies using `npm install`.
-3. Start the application using `npm start`.
-4. The application will be available at `http://localhost:3000`.
+3. Make sure you have the backend running as well.
+4. Add BASE_URL of your backend server (eg https://localhost:8080) to constant.js file.
+5. Start the application using `npm start`.
+6. The application will be available at `http://localhost:3000`.
 
 ## Usage
 
